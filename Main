@@ -39,15 +39,20 @@ UIS = game:GetService("UserInputService")
 ImportedStuff = Instance.new("Folder", workspace)
 
 ----In-Game locals
-DragonModel = workspace["it in the distance"]
-DragonPosition = DragonModel.Position
-Barriers = nil
-if workspace:FindFirstChild("Barrier") then
-	Barriers = workspace.Barrier
-end
-Spawns = workspace.Spawns
-SpawnsChildren = Spawns:GetChildren()
 WhileWait1Event = Instance.new("BindableEvent", ImportedStuff)
+
+if game.PlaceId == "3271747724" then
+	DragonModel = workspace["it in the distance"]
+	DragonPosition = DragonModel.Position
+	Barriers = nil
+	if workspace:FindFirstChild("Barrier") then
+		Barriers = workspace.Barrier
+	end
+	Spawns = workspace.Spawns
+	SpawnsChildren = Spawns:GetChildren()
+else
+	SendNotifcation("Warning!", "This is not a supported game! Expect for script to not run!", 5, nil, false, "")
+end
 
 --Sounds
 ClickSound = Instance.new("Sound", ImportedStuff)
@@ -328,10 +333,11 @@ Player.Chatted:Connect(function(msg)
 	if ScriptEnded == false then
 		if msg == "/e stop" then
 			warn("Script ended")
-			pcall(function() getgenv().SCRIPT_LOADED = true getgenv().CURRENT_SCRIPT_ENDED = false end)
+			pcall(function() getgenv().SCRIPT_LOADED = false getgenv().CURRENT_SCRIPT_ENDED = true end)
 			ScriptEnded = true
 			MainUi:Remove()
 			ImportedStuff:Remove()
+			SendNotifcation("Script ended;", "You may relaunch the script", 5, nil, false, "")
 		end
 	end
 end)
